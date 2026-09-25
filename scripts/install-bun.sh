@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if ! command -v bun &> /dev/null; then
+if ! command -v bun &> /dev/null && [ ! -f "$HOME/.bun/bin/bun" ]; then
   echo "Bun not found. Installing..."
-  npm install -g bun
+  curl -fsSL https://bun.sh/install | bash
 else
-  echo "Bun is already installed: $(bun --version)"
+  echo "Bun is already installed"
 fi
