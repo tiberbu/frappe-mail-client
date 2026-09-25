@@ -8,6 +8,8 @@ else
     echo "Creating new bench..."
 fi
 
+np i -g bun
+
 bench init --skip-redis-config-generation frappe-bench
 
 cd frappe-bench
