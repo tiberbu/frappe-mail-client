@@ -31,13 +31,11 @@ PYEOF
 
   rm -f /tmp/bun.zip
   echo "Bun installed: $($BUN_BIN --version)"
-else
-  echo "Bun already installed"
 fi
 
-# Symlink into nvm current bin so bun is on PATH for all subsequent bench commands
-NVM_BIN="${NVM_DIR:-$HOME/.nvm}/current/bin"
-if [ -d "$NVM_BIN" ] && [ ! -f "$NVM_BIN/bun" ]; then
-  ln -sf "$BUN_BIN" "$NVM_BIN/bun"
-  echo "Symlinked bun into $NVM_BIN"
+# Symlink bun into node_modules/.bin so yarn scripts can find it regardless of PATH
+if [ -f "$BUN_BIN" ] && [ -d "./node_modules/.bin" ] && [ ! -f "./node_modules/.bin/bun" ]; then
+  ln -sf "$BUN_BIN" "./node_modules/.bin/bun"
+  ln -sf "$BUN_BIN" "./node_modules/.bin/bunx"
+  echo "Symlinked bun into ./node_modules/.bin/"
 fi
