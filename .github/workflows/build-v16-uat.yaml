@@ -18,6 +18,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
       apps_json_base64: ${{ steps.apps-json.outputs.apps_json_base64 }}
+      app_name: mail
     steps:
       - uses: actions/checkout@v4
         with:
@@ -84,6 +85,7 @@ jobs:
     uses: tiberbu/frappe_docker/.github/workflows/app-build-image-custom.yaml@main
     with:
       apps_json_base64: ${{ needs.prepare.outputs.apps_json_base64 }}
+      app_name: mail
       frappe_ref: version-16
       frappe_image_prefix: frappe
       image_name: ${{ vars.ECR_REGISTRY }}/frappe-mail-uat
