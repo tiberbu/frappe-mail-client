@@ -49,7 +49,7 @@ jobs:
           token = os.environ["GIT_TOKEN"]
           apps = [
               {"url": "https://github.com/frappe/erpnext", "branch": "version-16"},
-              {"url": "https://github.com/frappe/frappe-mail-client", "branch": "develop"},
+              {"url": "https://github.com/tiberbu/frappe-mail-client", "branch": "develop"},
           ]
           print(json.dumps(apps, indent=2))
           PY
