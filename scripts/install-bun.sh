@@ -19,7 +19,6 @@ if ! command -v bun &> /dev/null && [ ! -f "$BUN_BIN" ]; then
   curl -fsSL "https://github.com/oven-sh/bun/releases/download/${BUN_VERSION}/${BUN_ARCH}.zip" \
     -o /tmp/bun.zip
 
-  # Use Python zipfile to avoid needing unzip
   python3 - "$BUN_ARCH" "$BUN_BIN" <<'PYEOF'
 import sys, zipfile, os, shutil
 arch, dest = sys.argv[1], sys.argv[2]
@@ -33,5 +32,12 @@ PYEOF
   rm -f /tmp/bun.zip
   echo "Bun installed: $($BUN_BIN --version)"
 else
-  echo "Bun is already installed"
+  echo "Bun already installed"
+fi
+
+# Symlink into nvm current bin so bun is on PATH for all subsequent bench commands
+NVM_BIN="${NVM_DIR:-$HOME/.nvm}/current/bin"
+if [ -d "$NVM_BIN" ] && [ ! -f "$NVM_BIN/bun" ]; then
+  ln -sf "$BUN_BIN" "$NVM_BIN/bun"
+  echo "Symlinked bun into $NVM_BIN"
 fi
